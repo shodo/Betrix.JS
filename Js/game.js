@@ -1,0 +1,81 @@
+import { Vector3, Vector4, Matrix4 } from "./math";
+import { Color, GraphicDevice, ShaderCompiler } from "./graphics";
+import BasicEffect from "./Effects/basicEffect";
+
+import Cube from "./Basic/cube";
+import Box from "./Basic/box";
+
+export default class
+{
+    constructor()
+    {
+        let $this = this;
+
+        $this.graphicDevice = new GraphicDevice();
+        $this.shaderCompiler = new ShaderCompiler();
+        $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler);
+    }
+
+    init()
+    {
+        let $this = this;
+
+        try
+        {
+            let oCanvas = document.getElementById("Canvas3D");
+            let oWebGLContext = oCanvas.getContext("experimental-webgl", true);
+            oWebGLContext.viewportWidth = oCanvas.width;
+            oWebGLContext.viewportHeight = oCanvas.height;
+
+            $this.graphicDevice.init(oWebGLContext);
+            $this.shaderCompiler.init(oWebGLContext);
+        }
+        catch(e)
+        {
+            alert("Error initializing WebGL context: " + e.message);
+        }
+
+        $this.graphicDevice.clearColor = Color.BLACK;
+
+        let projectionMatrix = new Matrix4().makeProjection(45, $this.graphicDevice.aspectRatio, 0.1, 100);
+        let viewMatrix = new Matrix4().makeIdentity();
+        let worldMatrix = new Matrix4().makeIdentity();
+
+        $this.basicEffect.init();
+        $this.basicEffect.projectionMatrix = projectionMatrix;
+        $this.basicEffect.viewMatrix = viewMatrix;
+        $this.basicEffect.worldMatrix = worldMatrix;
+        $this.basicEffect.colorEnabled = true;
+
+        $this.cube = new Box([Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.WHITE, Color.CYAN], [], $this.graphicDevice);
+        $this.cube.translation = new Vector3(0, 0, -10);
+    }
+
+    update(i_fDeltaTime)
+    {
+        let $this = this;
+
+        $this.cube.rotateOnX(0.01);
+        $this.cube.rotateOnY(0.01);
+        $this.basicEffect.worldMatrix = $this.cube.transform;
+    }
+
+    draw(i_fDeltaTime)
+    {
+        let $this = this;
+
+        //Clear render target
+        $this.graphicDevice.clear();
+
+        //Set effect
+        $this.graphicDevice.effect = $this.basicEffect;
+
+        //Draw on render target
+        $this.cube.draw();
+    }
+
+    unload()
+    {
+        let $this = this;
+    }
+}

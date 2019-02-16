@@ -1,0 +1,506 @@
+﻿@import '~bootstrap/dist/css/bootstrap.css'; /* Note: the ~ in the import indicates that webpack should look in the node_modules folder. */
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,500,600,700');
+@import 'icons.css';
+
+body {
+  font: normal medium/1.3 "Open Sans", Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+  font-weight: 300;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #3c3c3c;
+}
+ /*Custom button*/
+.btn {
+  border-radius: 0;
+}
+.btn-primary {
+  background: #ec008c;
+  border: none;
+  color: #ffffff;
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+  background: #ec008c;
+  border: none;
+}
+.btn-primary:active, .btn-primary.active {
+  background: #ec008c;
+  border: none;
+}
+/*Utilities*/
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+.clearfix { 
+  display: inline-block; 
+}
+.container-footer {
+  padding-bottom: 120px;
+}
+/*header*/
+ .navbar {
+   background: #ec008c;
+   zoom: 1;
+   border-bottom: 4px solid #930053;
+ }
+ a.hamburger[aria-expanded="true"]{
+  background: #930053;
+}
+.hamburger{
+  width: 56px;
+  height: 56px;
+  color: #fff !important;
+  border-right: 1px solid #930053;
+  background: #ec008c;
+  text-align: center;
+  float: left;
+  font-size: 11px;
+  border-radius: 0;
+}
+.icon-hamburger {
+  color: #fff;
+  font-size: 30px;
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  font-weight: 300; 
+}
+.menu{
+  background: #f2f2f2;
+}
+.nav-link{
+  border-bottom: 1px solid #e6e6e6;
+  cursor: pointer;
+  text-align: left;
+}
+.lmn-logo{
+ margin-left:10px;
+ padding-top: 0.8rem;
+}
+
+/* Extra small devices (portrait phones, less than 768px)*/
+@media (max-width: 768px){ 
+  h1, .h1 {
+    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-weight: bold;
+  }
+  h2,.h2 {
+    font-size: 0.80rem;
+  }
+  h3,.h3 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  h4,.h4 {
+    font-size: 0.90rem;
+    font-weight: bold;
+  }
+  p {
+    font-size: 0.85rem;
+  }
+  .mobile{
+    display: inline;
+  }
+  .desk{
+    display: none;
+  }
+  .willis-logo img {
+    width: 60px;
+    height: 23px;
+  }
+  .footer p{
+    font-size: 0.75rem;
+  }
+  .jumbotron-head {
+    background: url("~/dist/content/images/932x432_Visual_mobile.jpg") no-repeat top left;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  .user-mobile{
+    margin-top: 60px;
+    font-size: 0.85rem;
+  }
+  .user-mail{
+    display: inline-block;
+    max-height: 30px;
+    background-color: #bbabbc;
+    border-bottom: 1px #fff solid;
+    color:#fff;
+    text-align:left;
+    line-height: 26px;
+  }
+  .user-credit{
+    display: inline-block;
+    min-height: 40px;
+    background-color: #fff;
+    border-bottom: 4px #fff solid;
+    color:#fff;
+    text-align:left;
+    color: #3c3c3c;
+    padding: 0 5px;
+  }
+  .currency{
+    font-size: 1rem;
+    vertical-align: bottom;
+  }
+  .credit-value{
+    font-size: 1.2rem;
+    font-weight: bold;
+    vertical-align: bottom;
+  }
+  .credit-text{
+    font-size: 0.55rem;
+  }
+  .user-desk{
+    display:none;
+  }
+  .highlight {
+    padding-top: 130px;
+  } 
+  .highlight h2{
+    padding-bottom: 40px;
+  }
+  /*usb*/
+  .usb-icon {
+    width: 70px;
+    height: 70px;
+  }
+  .usb-text{
+    text-align: center;
+  }
+  /*Self booking*/
+  h1.display-4{
+    font-weight:normal;
+    font-size: 1.4rem;
+    margin-top:0;
+    padding-left:20px;
+  }
+  p.lead{
+    padding-bottom:10px;
+    font-weight:bold;
+    font-size: 1.6rem;
+    padding: 0px 0px 0px 20px;
+  }
+  .jumbotron-small {
+    background: url("~/dist/content/images/1920x290_form.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 200px;
+  }
+  .modal-dialog-centered {
+    max-width: 100vw;
+  }
+  /*Thankyou and ErrorPage*/
+  .background-container{
+    background: url("~/dist/content/images/1920x1080_main_visual.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 85vh;
+    padding-top:115px;
+  }
+  /*MyVouchers*/
+  .highlight-myvouchers {
+    padding: 0px 0px 0 40px;
+    text-align: left;
+  }
+  .highlight-myvouchers h1{
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+  .highlight-myvouchers h2{
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  .card{
+    display:block;
+    margin:20px 0;
+    border-radius: 0;
+    border: none;
+    font-size: 0.80rem;
+  }
+  .card-header:first-child {
+    border-radius: 0;
+  }
+  .card-header{
+    display: inline-block;
+    background: #ec008c;
+    color:#fff;
+    border: none;
+    width:auto;
+    min-width: 40%;
+    max-height: 30px;
+    margin-left: 20px;
+    line-height: 8px;
+    white-space: nowrap;
+  }
+  .card-body{
+    background: #fdf2fa;
+    border: none;
+    border-radius: 0;
+  }
+  .card-name,.card-voucher,.card-value{
+    font-weight: bold;
+  }
+  .card-label{
+    display:block;
+    font-weight: normal;
+    padding:5px 0;
+  }
+}
+/* Medium devices (tablets, 768px and up)*/
+@media (min-width: 768px)
+{  
+  h1, .h1 {
+    font-size: 1.6rem;
+    font-weight: bold;
+  }
+  h2,.h2 {
+    font-size: 1rem;
+  }
+  h3,.h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+  }
+  h4,.h4 {
+    font-size: 1rem;
+    font-weight: bold;
+  }
+  p {
+    font-size: 0.80rem;
+  }
+  .mobile{
+    display: none;
+  }
+  .desk{
+    display: inline;
+  }
+  .willis-logo img{
+    width:240px;
+    height:23px;
+  }
+  
+  .footer p{
+    font-size: 0.85rem;
+  }
+  .jumbotron-head {
+    background: url("~/dist/content/images/1920x1080_main_visual.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  .user-mobile{
+    display:none;
+  }
+  .user-desk{
+    position:absolute;
+    display:block;
+    width: 200px;
+    right:0px;
+    top:56px;
+  }
+  .user-desk .user-mail{
+    width:190px;
+    background-color: #bbabbc;
+    color:#fff;
+    font-size: 0.90rem;
+    text-align:left;
+    min-height: 30px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 30px;
+  }
+  .user-desk .user-circle{
+    width: 200px;
+    height: 160px;
+    background-color: #fff;
+    opacity: 0.80;
+    text-align: center;
+    padding:10px 0;
+  }
+  .user-desk .user-credit{
+    background: url("~/dist/content/images/circle_counter.svg") no-repeat center center #fff;
+    color: #3c3c3c;
+  }
+  .user-desk .map{
+    display: block;
+    text-align: center;
+  }
+  .user-desk .map img{
+    width: 60px;
+    height: 60px;
+    padding: 10px 0 0;
+  }
+  .user-desk .credit-value{
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  .user-desk .credit-text{
+    display: block;
+    font-size: 0.55rem;
+    padding-top: 5px;
+  }
+  .highlight {
+    padding-top: 220px;
+  } 
+  .highlight h2{
+    padding-bottom: 50px;
+  }
+   /*usb*/
+   .usb-icon {
+    width: 120px;
+    height: 120px;
+  }
+  .usb-text{
+    text-align: left;
+  }
+  /*Self booking*/
+  h1.display-4{
+    font-weight:normal;
+    font-size: 2rem;
+    padding-top:20px;
+    padding-left:20px;            
+  }
+  p.lead{
+    padding-bottom:10px;
+    font-weight:bold;
+    font-size: 2rem;
+    margin: 0px;
+    padding-bottom:20px;
+    padding-left:20px;
+  }
+  .jumbotron-small {
+    background: url("~/dist/content/images/1920x290_form.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 246px;
+    padding-top: 56px;
+  }
+  .modal-dialog-centered {
+    max-width: 100vw;
+  }
+  /*Thankyou and ErrorPage*/
+  .background-container{
+    background: url("~/dist/content/images/1920x1080_main_visual.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 92vh;
+    padding-top:140px;
+  }
+  /*MyVouchers*/
+  .highlight-myvouchers {
+    padding: 40px 0px 0 40px;
+    text-align: left;
+  }
+  .highlight-myvouchers h1{
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+  .highlight-myvouchers h2{
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  .card{
+    display:block;
+    margin:20px 0;
+    border-radius: 0;
+    border: none;
+    font-size: 0.80rem;
+  }
+  .card-header:first-child {
+    border-radius: 0;
+  }
+  .card-header{
+    display: inline-block;
+    color: #fff;
+    background: #ec008c;
+    border: none;
+    width:auto;
+    min-width: 40%;
+    max-height: 30px;
+    margin-left: 20px;
+    line-height: 8px;
+    white-space: nowrap;
+  }
+  .card-body{
+    background: #fdf2fa;
+    border: none;
+    border-radius: 0;
+  }
+  .card-name,.card-voucher,.card-value{
+    font-weight: bold;
+  }
+  .card-label{
+    display:block;
+    font-weight: normal;
+    padding:5px 0;
+  }  
+}
+/* Large devices (desktops, 992px and up)*/
+@media (min-width: 992px) {
+  h1, .h1 {
+    font-size: 1.8rem;
+    font-weight: bold;
+  }
+  h2,.h2 {
+    font-size: 1rem;
+  }
+  .highlight{
+    padding-top: 210px;
+  }
+  .user-desk {
+    position: absolute;
+    display: block;
+    width: 200px;
+    right: 20px;
+    top: 56px;
+  }
+  /*usb*/
+  .usb-icon {
+    width: 120px;
+    height: 120px;
+  }
+  .jumbotron-head {
+    background: url("~/dist/content/images/1920x1080_main_visual.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 100vh;
+  }
+  /*Thankyou and ErrorPage*/
+  .background-container{
+    background: url("~/dist/content/images/1920x1080_main_visual.jpg") no-repeat top left scroll;
+    background-size: cover;
+    min-height: 95vh;
+    padding-top:180px;
+  }
+ }
+/*main*/
+.mail-icon{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+.jumbotron{
+  border-radius: 0;
+}
+ /*Selfbooking*/
+.background-grey{
+  background-color: #e3e3e3;
+}
+/*footer*/
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  min-height:60px;
+  background: #f9f8f8;
+  color: #a8a8a8;
+  text-align: center;
+  vertical-align: center;
+}
+
+.footer p{
+ padding: 10px;
+}
+
+
