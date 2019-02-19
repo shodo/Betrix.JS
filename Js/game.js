@@ -1,9 +1,8 @@
 import { Vector3, Vector4, Matrix4 } from "./math";
-import { Color, GraphicDevice, ShaderCompiler } from "./graphics";
+import { Color, GraphicDevice, ShaderCompiler, ShaderProgramBuilder, Texture2D } from "./graphics";
 import BasicEffect from "./Effects/basicEffect";
 
-import Cube from "./Basic/cube";
-import Box from "./Basic/box";
+import Plane from "./Basic/plane"
 
 export default class
 {
@@ -12,8 +11,8 @@ export default class
         let $this = this;
 
         $this.graphicDevice = new GraphicDevice();
-        $this.shaderCompiler = new ShaderCompiler();
-        $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler);
+        $this.shaderCompiler = new ShaderCompiler();      
+
     }
 
     init()
@@ -29,6 +28,10 @@ export default class
 
             $this.graphicDevice.init(oWebGLContext);
             $this.shaderCompiler.init(oWebGLContext);
+            $this.shaderProgramBuilder = new ShaderProgramBuilder($this.shaderCompiler, oWebGLContext);
+
+            $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
+            $this.texture = new Texture2D(128, 128, [Color.BLUE], $this.graphicDevice);
         }
         catch(e)
         {
@@ -47,7 +50,7 @@ export default class
         $this.basicEffect.worldMatrix = worldMatrix;
         $this.basicEffect.colorEnabled = true;
 
-        $this.cube = new Box([Color.BLUE, Color.RED, Color.GREEN, Color.YELLOW, Color.WHITE, Color.CYAN], [], $this.graphicDevice);
+        $this.cube = new Plane(Color.WHITE, $this.graphicDevice);
         $this.cube.translation = new Vector3(0, 0, -10);
     }
 
@@ -55,7 +58,7 @@ export default class
     {
         let $this = this;
 
-        $this.cube.rotateOnX(0.01);
+        //$this.cube.rotateOnX(0.01);
         $this.cube.rotateOnY(0.01);
         $this.basicEffect.worldMatrix = $this.cube.transform;
     }

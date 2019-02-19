@@ -1,34 +1,28 @@
 import { VertexPosition } from "../graphics"
 import { VertexPositionColor } from "../graphics"
+import { VertexPositionColorTexture } from "../graphics"
 import { Matrix4 } from "../math"
 
 export default class
 {
-    constructor(i_oGraphicDevice, i_oShaderCompiler)
+    constructor(i_oGraphicDevice, i_oShaderCompiler, i_oShaderProgramBuilder)
     {
         let $this = this;
 
         $this.p_oGraphicDevice = i_oGraphicDevice;
         $this.p_oShaderCompiler = i_oShaderCompiler;
-              
+        $this.m_oShaderProgramBuilder = i_oShaderProgramBuilder;
+
         //Simple vertex shaders
-        $this.p_oVertexShader = undefined;
-        $this.p_oFragmentShader = undefined;
         $this.p_oShaderProgram = undefined;
         
         //Color vertex shaders
-        $this.p_oColorVertexShader = undefined;
-        $this.p_oColorFragmentShader = undefined;
         $this.p_oColorShaderProgram = undefined;
         
         //Color Texture vertex shaders
-        $this.p_oColorTextureVertexShader = undefined;
-        $this.p_oColorTextureFragmentShader = undefined;
         $this.p_oColorTextureShaderProgram = undefined;
         
         //Texture vertex shaders
-        $this.p_oTextureVertexShader = undefined;
-        $this.p_oTextureFragmentShader = undefined;
         $this.p_oTextureShaderProgram = undefined;
         
         //Current program
@@ -52,44 +46,32 @@ export default class
         var oGLContext = $this.p_oGraphicDevice.oWebGLContext;
     
         //Creating vertex position shader
-        $this.p_oVertexShader = $this.p_oShaderCompiler.compile("shader-vs");
-        $this.p_oFragmentShader = $this.p_oShaderCompiler.compile("shader-fs");
-   
-        $this.p_oShaderProgram = oGLContext.createProgram();
-    
-        oGLContext.attachShader($this.p_oShaderProgram, $this.p_oVertexShader);
-        oGLContext.attachShader($this.p_oShaderProgram, $this.p_oFragmentShader);
-        oGLContext.linkProgram($this.p_oShaderProgram);
+        $this.p_oShaderProgram = $this.m_oShaderProgramBuilder.buildProgram("shader-vs", "shader-fs");
 
-        if(!oGLContext.getProgramParameter($this.p_oShaderProgram, oGLContext.LINK_STATUS)) 
-        {
-            alert("Could not initialise shaders");
-        }
-    
         $this.p_oShaderProgram.m_oVertexLocation = oGLContext.getAttribLocation($this.p_oShaderProgram, "aVertexPosition");    
         $this.p_oShaderProgram.m_oProjectionMatrixLocation = oGLContext.getUniformLocation($this.p_oShaderProgram, "uPMatrix");
         $this.p_oShaderProgram.m_oModelViewMatrixLocation = oGLContext.getUniformLocation($this.p_oShaderProgram, "uMVMatrix");
         $this.p_oShaderProgram.m_oVertexDeclaration = VertexPosition.vertexDeclaration;
     
         //Creating vertex position color shader
-        $this.p_oColorVertexShader = $this.p_oShaderCompiler.compile("shader-vs-color");
-        $this.p_oColorFragmentShader = $this.p_oShaderCompiler.compile("shader-fs-color");
-    
-        $this.p_oColorShaderProgram = oGLContext.createProgram();
-    
-        oGLContext.attachShader($this.p_oColorShaderProgram, $this.p_oColorVertexShader);
-        oGLContext.attachShader($this.p_oColorShaderProgram, $this.p_oColorFragmentShader);
-        oGLContext.linkProgram($this.p_oColorShaderProgram);
-        if(!oGLContext.getProgramParameter($this.p_oColorShaderProgram, oGLContext.LINK_STATUS)) 
-        {
-            alert("Could not initialise shaders");
-        }
-    
+        $this.p_oColorShaderProgram = $this.m_oShaderProgramBuilder.buildProgram("shader-vs-color", "shader-fs-color");
+
         $this.p_oColorShaderProgram.m_oVertexLocation = oGLContext.getAttribLocation($this.p_oColorShaderProgram, "aVertexPosition");    
         $this.p_oColorShaderProgram.m_oVertexColorLocation = oGLContext.getAttribLocation($this.p_oColorShaderProgram, "aVertexColor");
         $this.p_oColorShaderProgram.m_oProjectionMatrixLocation = oGLContext.getUniformLocation($this.p_oColorShaderProgram, "uPMatrix");
         $this.p_oColorShaderProgram.m_oModelViewMatrixLocation = oGLContext.getUniformLocation($this.p_oColorShaderProgram, "uMVMatrix");
         $this.p_oColorShaderProgram.m_oVertexDeclaration = VertexPositionColor.vertexDeclaration;
+
+        //Creating vertex position color shader
+        $this.p_oColorTextureShaderProgram = $this.m_oShaderProgramBuilder.buildProgram("shader-vs-color-texture", "shader-fs-color-texture");
+
+        $this.p_oColorTextureShaderProgram.m_oVertexLocation = oGLContext.getAttribLocation($this.p_oColorTextureShaderProgram, "aVertexPosition");    
+        $this.p_oColorTextureShaderProgram.m_oVertexColorLocation = oGLContext.getAttribLocation($this.p_oColorTextureShaderProgram, "aVertexColor");
+        $this.p_oColorTextureShaderProgram.m_oVertexUVLocation = oGLContext.getAttribLocation($this.p_oColorTextureShaderProgram, "aVertexUV");
+        $this.p_oColorTextureShaderProgram.m_oProjectionMatrixLocation = oGLContext.getUniformLocation($this.p_oColorTextureShaderProgram, "uPMatrix");
+        $this.p_oColorTextureShaderProgram.m_oModelViewMatrixLocation = oGLContext.getUniformLocation($this.p_oColorTextureShaderProgram, "uMVMatrix");
+        $this.p_oColorTextureShaderProgram.m_oSampler = oGLContext.getUniformLocation($this.p_oColorTextureShaderProgram, 'uSampler'),
+        $this.p_oColorTextureShaderProgram.m_oVertexDeclaration = VertexPositionColorTexture.vertexDeclaration;
     
         $this._updateState();
     }
@@ -117,6 +99,12 @@ export default class
         {
             oGLContext.enableVertexAttribArray(this.p_oCurrentShaderProgram.m_oVertexColorLocation);  
             oGLContext.vertexAttribPointer(this.p_oCurrentShaderProgram.m_oVertexColorLocation, 4, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(0));
+        }
+
+        if(this.m_bTextureEnabled)
+        {
+            oGLContext.enableVertexAttribArray(this.p_oCurrentShaderProgram.m_oVertexUVLocation);  
+            oGLContext.vertexAttribPointer(this.p_oCurrentShaderProgram.m_oVertexUVLocation, 2, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(1));
         }
         
         oGLContext.uniformMatrix4fv(this.p_oCurrentShaderProgram.m_oProjectionMatrixLocation, false, new Float32Array(this.p_oProjectionMatrix.array));
