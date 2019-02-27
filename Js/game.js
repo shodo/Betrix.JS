@@ -1,6 +1,7 @@
 import { Vector3, Vector4, Matrix4 } from "./math";
 import { Color, GraphicDevice, ShaderCompiler, ShaderProgramBuilder, Texture2D } from "./graphics";
 import BasicEffect from "./Effects/basicEffect";
+import TextureLoader from "./Loaders/textureLoader"
 
 import Plane from "./Basic/plane"
 
@@ -29,14 +30,17 @@ export default class
             $this.graphicDevice.init(oWebGLContext);
             $this.shaderCompiler.init(oWebGLContext);
             $this.shaderProgramBuilder = new ShaderProgramBuilder($this.shaderCompiler, oWebGLContext);
-
-            $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
-            $this.texture = new Texture2D(128, 128, [Color.BLUE], $this.graphicDevice);
+          
         }
         catch(e)
         {
             alert("Error initializing WebGL context: " + e.message);
-        }
+        }    
+
+        //$this.textureLoader = new TextureLoader($this.graphicDevice);
+
+        $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
+        $this.texture = new Texture2D({ width : 4, height: 1, colorData : new Uint8Array(Color.BLUE.unsignedByteFormat.concat(Color.BLUE.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat))}, $this.graphicDevice);
 
         $this.graphicDevice.clearColor = Color.BLACK;
 
@@ -49,6 +53,7 @@ export default class
         $this.basicEffect.viewMatrix = viewMatrix;
         $this.basicEffect.worldMatrix = worldMatrix;
         $this.basicEffect.colorEnabled = true;
+        $this.basicEffect.textureEnabled = true;
 
         $this.cube = new Plane(Color.WHITE, $this.graphicDevice);
         $this.cube.translation = new Vector3(0, 0, -10);
@@ -72,6 +77,9 @@ export default class
 
         //Set effect
         $this.graphicDevice.effect = $this.basicEffect;
+
+        //Set texture
+        $this.graphicDevice.bindTexture($this.texture);
 
         //Draw on render target
         $this.cube.draw();

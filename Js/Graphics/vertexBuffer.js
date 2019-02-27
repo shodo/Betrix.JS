@@ -45,4 +45,6 @@ export default class
     }
 
     get vertexCount() { return this.p_oInnerVertexBuffer.numItems; };
+
+    get vertexDeclaration() { return this.p_oVertexDeclaration; }
 }

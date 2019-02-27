@@ -1,6 +1,7 @@
 import { Matrix4 } from "../math";
 import { Vector3 } from "../math";
-import { VertexBuffer, VertexPositionColor, IndexBuffer, DrawModes } from "../graphics";
+import { Vector2 } from "../math";
+import { VertexBuffer, VertexPositionColorTexture, IndexBuffer, DrawModes } from "../graphics";
 
 export default class
 { 
@@ -10,13 +11,13 @@ export default class
 
         $this.graphicDevice = graphicDevice;
 
-        $this.vertexBuffer =  new VertexBuffer($this.graphicDevice, VertexPositionColor.vertexDeclaration);
+        $this.vertexBuffer =  new VertexBuffer($this.graphicDevice, VertexPositionColorTexture.vertexDeclaration);
         $this.vertexBuffer.setData(  
         [
-            new VertexPositionColor(new Vector3(-1.0, -1.0, 0.0), color),
-            new VertexPositionColor(new Vector3(-1.0, 1.0, 0.0), color),
-            new VertexPositionColor(new Vector3(1.0,  1.0, 0.0), color),
-            new VertexPositionColor(new Vector3(1.0, -1.0, 0.0), color)
+            new VertexPositionColorTexture(new Vector3(-1.0, -1.0, 0.0), color, new Vector2(0, 1)),
+            new VertexPositionColorTexture(new Vector3(-1.0, 1.0, 0.0), color, new Vector2(0, 0)),
+            new VertexPositionColorTexture(new Vector3(1.0,  1.0, 0.0), color, new Vector2(1, 0)),
+            new VertexPositionColorTexture(new Vector3(1.0, -1.0, 0.0), color, new Vector2(1, 1))
         ]);
 
         $this.indexBuffer = new IndexBuffer($this.graphicDevice);

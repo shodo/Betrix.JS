@@ -26,29 +26,29 @@ export default class
         $this.oWebGLContext.clear($this.oWebGLContext.COLOR_BUFFER_BIT | $this.oWebGLContext.DEPTH_BUFFER_BIT);
     };
 
-    draw(i_oVertex, i_eDrawMode, i_uiOffsetIndex, i_uiNumElements)
+    draw(i_oVertexBuffer, i_eDrawMode, i_uiOffsetIndex, i_uiNumElements)
     {
         let $this = this;
 
         let eDrawMode = getGLDrawMode(i_eDrawMode);
        
-        $this.oWebGLContext.bindBuffer($this.oWebGLContext.ARRAY_BUFFER, i_oVertex.p_oInnerVertexBuffer);
+        $this.oWebGLContext.bindBuffer($this.oWebGLContext.ARRAY_BUFFER, i_oVertexBuffer.p_oInnerVertexBuffer);
 
-        $this.m_oEffect.begin();
+        $this.m_oEffect.begin(i_oVertexBuffer.vertexDeclaration);
         $this.oWebGLContext.drawArrays(eDrawMode, i_uiOffsetIndex, i_uiNumElements);
         $this.m_oEffect.end();
     }
 
-    drawIndexed(i_oVertex, i_oIndex, i_eDrawMode, i_uiOffsetIndex, i_uiNumElements)
+    drawIndexed(i_oVertexBuffer, i_oIndex, i_eDrawMode, i_uiOffsetIndex, i_uiNumElements)
     {
         let $this = this;
 
         let eDrawMode = $this.getGLDrawMode(i_eDrawMode);
        
-        $this.oWebGLContext.bindBuffer($this.oWebGLContext.ARRAY_BUFFER, i_oVertex.p_oInnerVertexBuffer);
+        $this.oWebGLContext.bindBuffer($this.oWebGLContext.ARRAY_BUFFER, i_oVertexBuffer.p_oInnerVertexBuffer);
         $this.oWebGLContext.bindBuffer($this.oWebGLContext.ELEMENT_ARRAY_BUFFER, i_oIndex.innerIndexBuffer);
 
-        $this.m_oEffect.begin();
+        $this.m_oEffect.begin(i_oVertexBuffer.vertexDeclaration);
         $this.oWebGLContext.drawElements(eDrawMode, i_uiNumElements, $this.oWebGLContext.UNSIGNED_SHORT, i_uiOffsetIndex * 2);
         $this.m_oEffect.end();
     }
@@ -89,6 +89,16 @@ export default class
         }
 
         return eDrawMode;
+    }
+
+    bindTexture(i_oTexture, i_uiTextureSlot = 0)
+    {
+        let $this = this;
+
+        const glContext = $this.oWebGLContext;
+        
+        glContext.activeTexture(glContext["TEXTURE" + i_uiTextureSlot]);
+        glContext.bindTexture(glContext.TEXTURE_2D, i_oTexture.m_oTexture);
     }
 
     set effect(i_oEffect) { this.m_oEffect = i_oEffect; }

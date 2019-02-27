@@ -76,39 +76,35 @@ export default class
         $this._updateState();
     }
 
-    begin()
+    begin(i_oVertexDeclaration)
     {   
         let $this = this;
 
         let oGLContext = this.p_oGraphicDevice.oWebGLContext;
-        let oCurrentVertexDeclaration = this.p_oCurrentShaderProgram.m_oVertexDeclaration;
+        let oCurrentVertexDeclaration = i_oVertexDeclaration;
             
         $this.p_oWorldViewMatrix.makeIdentity();
-        $this.p_oWorldViewMatrix.mult(this.p_oViewMatrix);
-        $this.p_oWorldViewMatrix.mult(this.p_oWorldMatrix);
+        $this.p_oWorldViewMatrix.mult($this.p_oViewMatrix);
+        $this.p_oWorldViewMatrix.mult($this.p_oWorldMatrix);
 
-        oGLContext.enableVertexAttribArray(this.p_oCurrentShaderProgram.m_oVertexLocation);   
-        oGLContext.vertexAttribPointer(this.p_oCurrentShaderProgram.m_oVertexLocation, 3, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, 0);   
-        
-        if(this.m_bTextureEnabled)
+        oGLContext.enableVertexAttribArray($this.p_oCurrentShaderProgram.m_oVertexLocation);   
+        oGLContext.vertexAttribPointer($this.p_oCurrentShaderProgram.m_oVertexLocation, 3, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, 0);   
+               
+        if($this.m_bColorEnabled)
         {
-            
-        }
-        
-        if(this.m_bColorEnabled)
-        {
-            oGLContext.enableVertexAttribArray(this.p_oCurrentShaderProgram.m_oVertexColorLocation);  
-            oGLContext.vertexAttribPointer(this.p_oCurrentShaderProgram.m_oVertexColorLocation, 4, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(0));
+            oGLContext.enableVertexAttribArray($this.p_oCurrentShaderProgram.m_oVertexColorLocation);  
+            oGLContext.vertexAttribPointer($this.p_oCurrentShaderProgram.m_oVertexColorLocation, 4, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(0));
         }
 
-        if(this.m_bTextureEnabled)
+        if($this.m_bTextureEnabled)
         {
-            oGLContext.enableVertexAttribArray(this.p_oCurrentShaderProgram.m_oVertexUVLocation);  
-            oGLContext.vertexAttribPointer(this.p_oCurrentShaderProgram.m_oVertexUVLocation, 2, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(1));
+            oGLContext.enableVertexAttribArray($this.p_oCurrentShaderProgram.m_oVertexUVLocation);  
+            oGLContext.vertexAttribPointer($this.p_oCurrentShaderProgram.m_oVertexUVLocation, 2, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(1));
+            oGLContext.uniform1i($this.p_oCurrentShaderProgram.m_oSampler, 0);
         }
         
-        oGLContext.uniformMatrix4fv(this.p_oCurrentShaderProgram.m_oProjectionMatrixLocation, false, new Float32Array(this.p_oProjectionMatrix.array));
-        oGLContext.uniformMatrix4fv(this.p_oCurrentShaderProgram.m_oModelViewMatrixLocation, false, new Float32Array(this.p_oWorldViewMatrix.array));
+        oGLContext.uniformMatrix4fv($this.p_oCurrentShaderProgram.m_oProjectionMatrixLocation, false, new Float32Array(this.p_oProjectionMatrix.array));
+        oGLContext.uniformMatrix4fv($this.p_oCurrentShaderProgram.m_oModelViewMatrixLocation, false, new Float32Array(this.p_oWorldViewMatrix.array));
     }
 
     end()
@@ -125,7 +121,7 @@ export default class
         if($this.m_bTextureEnabled && $this.m_bColorEnabled)
         {
             $this.p_eCurrentEffectState = $this.constructor.EffectStates.POSITION_COLOR_TEXTURE;
-            $this.p_oCurrentShaderProgram = $this.p_oTextureColorShaderProgram;
+            $this.p_oCurrentShaderProgram = $this.p_oColorTextureShaderProgram;
         }
         else if(this.m_bTextureEnabled)
         {
