@@ -11,10 +11,21 @@ export default class
         $this.m_oGraphicDevice = i_oGraphicDevice;
     }
 
-    loadFromUrl(textureUrl)
+    loadFromImageUrl(textureUrl, successCallback, errorCallback)
     {
         let $this = this;
+
+        if(!textureUrl) throw "textureUrl cannot be null";
+        if(!successCallback) throw "successCallback cannot be null"
+        if(!errorCallback) throw "errorCallback cannot be null"
         
-        return new Texture2D({ width : 4, height: 1, colorData : new Uint8Array(Color.BLUE.unsignedByteFormat.concat(Color.BLUE.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat))}, $this.m_oGraphicDevice);
+        let image = new Image();
+        image.onload = () =>  
+        {
+            successCallback(new Texture2D({ width: image.width, height: image.height, imageData : image }, $this.m_oGraphicDevice));
+        };
+
+        image.onerror = errorCallback
+        image.src = textureUrl;
     }
 }
