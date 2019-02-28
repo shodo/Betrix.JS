@@ -11,7 +11,7 @@ export default class
         $this.m_oGraphicDevice = i_oGraphicDevice;
     }
 
-    LoadFromUrl(textureUrl)
+    loadFromUrl(textureUrl)
     {
         let $this = this;
         

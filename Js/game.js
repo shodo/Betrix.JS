@@ -37,11 +37,10 @@ export default class
             alert("Error initializing WebGL context: " + e.message);
         }    
 
-        //$this.textureLoader = new TextureLoader($this.graphicDevice);
+        $this.textureLoader = new TextureLoader($this.graphicDevice);
 
         $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
-        $this.texture = new Texture2D({ width : 4, height: 1, colorData : new Uint8Array(Color.BLUE.unsignedByteFormat.concat(Color.BLUE.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat).concat(Color.YELLOW.unsignedByteFormat))}, $this.graphicDevice);
-
+        $this.texture = $this.textureLoader.loadFromUrl();
         $this.graphicDevice.clearColor = Color.BLACK;
 
         let projectionMatrix = new Matrix4().makeProjection(45, $this.graphicDevice.aspectRatio, 0.1, 100);

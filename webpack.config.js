@@ -57,7 +57,7 @@ module.exports = (env = {}, argv = {}) =>
         },
         plugins:
         [
-            new CopyWebpackPlugin([{ from: './content/images', to: 'content/images' }]),
+            // new CopyWebpackPlugin([{ from: './content/images', to: 'content/images' }]),
             new MiniCssExtractPlugin({filename: 'styles.css'})
         ],
         resolve:
