@@ -40,7 +40,7 @@ export default class
         $this.textureLoader = new TextureLoader($this.graphicDevice);
 
         $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
-        $this.texture = $this.textureLoader.loadFromUrl();
+        $this.texture = $this.textureLoader.loadFromUrl("./texture.jpg");
         $this.graphicDevice.clearColor = Color.BLACK;
 
         let projectionMatrix = new Matrix4().makeProjection(45, $this.graphicDevice.aspectRatio, 0.1, 100);
