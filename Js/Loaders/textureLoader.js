@@ -20,12 +20,14 @@ export default class
         if(!errorCallback) throw "errorCallback cannot be null"
         
         let image = new Image();
+        
         image.onload = () =>  
         {
             successCallback(new Texture2D({ width: image.width, height: image.height, imageData : image }, $this.m_oGraphicDevice));
         };
 
         image.onerror = errorCallback
+        image.crossOrigin = "";
         image.src = textureUrl;
     }
 }

@@ -14,10 +14,10 @@ export default class
         $this.vertexBuffer =  new VertexBuffer($this.graphicDevice, VertexPositionColorTexture.vertexDeclaration);
         $this.vertexBuffer.setData(  
         [
-            new VertexPositionColorTexture(new Vector3(-1.0, -1.0, 0.0), color, new Vector2(0, 1)),
-            new VertexPositionColorTexture(new Vector3(-1.0, 1.0, 0.0), color, new Vector2(0, 0)),
-            new VertexPositionColorTexture(new Vector3(1.0,  1.0, 0.0), color, new Vector2(1, 0)),
-            new VertexPositionColorTexture(new Vector3(1.0, -1.0, 0.0), color, new Vector2(1, 1))
+            new VertexPositionColorTexture(new Vector3(-1.0, -1.0, 0.0), color, new Vector2(0, 0)),
+            new VertexPositionColorTexture(new Vector3(-1.0, 1.0, 0.0), color, new Vector2(0, 1)),
+            new VertexPositionColorTexture(new Vector3(1.0,  1.0, 0.0), color, new Vector2(1, 1)),
+            new VertexPositionColorTexture(new Vector3(1.0, -1.0, 0.0), color, new Vector2(1, 0))
         ]);
 
         $this.indexBuffer = new IndexBuffer($this.graphicDevice);

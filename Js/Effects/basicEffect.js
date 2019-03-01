@@ -99,7 +99,7 @@ export default class
         if($this.m_bTextureEnabled)
         {
             oGLContext.enableVertexAttribArray($this.p_oCurrentShaderProgram.m_oVertexUVLocation);  
-            oGLContext.vertexAttribPointer($this.p_oCurrentShaderProgram.m_oVertexUVLocation, 2, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(1));
+            oGLContext.vertexAttribPointer($this.p_oCurrentShaderProgram.m_oVertexUVLocation, 2, oGLContext.FLOAT, false, oCurrentVertexDeclaration.stride, oCurrentVertexDeclaration.getElementSize(0) + oCurrentVertexDeclaration.getElementSize(1));
             oGLContext.uniform1i($this.p_oCurrentShaderProgram.m_oSampler, 0);
         }
         

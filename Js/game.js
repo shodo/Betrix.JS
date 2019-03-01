@@ -40,7 +40,7 @@ export default class
         $this.textureLoader = new TextureLoader($this.graphicDevice);
 
         $this.basicEffect = new BasicEffect($this.graphicDevice, $this.shaderCompiler, $this.shaderProgramBuilder);
-        $this.texture = $this.textureLoader.loadFromUrl("./texture.jpg");
+        $this.textureLoader.loadFromImageUrl("./texture.jpg", (texture) => $this.texture = texture, () => alert("error"));
         $this.graphicDevice.clearColor = Color.BLACK;
 
         let projectionMatrix = new Matrix4().makeProjection(45, $this.graphicDevice.aspectRatio, 0.1, 100);
@@ -54,8 +54,8 @@ export default class
         $this.basicEffect.colorEnabled = true;
         $this.basicEffect.textureEnabled = true;
 
-        $this.cube = new Plane(Color.WHITE, $this.graphicDevice);
-        $this.cube.translation = new Vector3(0, 0, -10);
+        $this.cube = new Plane(Color.RED, $this.graphicDevice);
+        $this.cube.translation = new Vector3(0, 0, -5);
     }
 
     update(i_fDeltaTime)
@@ -71,17 +71,20 @@ export default class
     {
         let $this = this;
 
-        //Clear render target
-        $this.graphicDevice.clear();
+        if($this.texture)
+        {
+            //Clear render target
+            $this.graphicDevice.clear();
 
-        //Set effect
-        $this.graphicDevice.effect = $this.basicEffect;
+            //Set effect
+            $this.graphicDevice.effect = $this.basicEffect;
 
-        //Set texture
-        $this.graphicDevice.bindTexture($this.texture);
+            //Set texture
+            $this.graphicDevice.bindTexture($this.texture);
 
-        //Draw on render target
-        $this.cube.draw();
+            //Draw on render target
+            $this.cube.draw();
+        }
     }
 
     unload()

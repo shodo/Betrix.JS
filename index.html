@@ -64,7 +64,7 @@ WebGL TestBed by Mattias Santoro
             uniform mat4 uPMatrix;
             
             varying lowp vec4 vColor;
-            varying mediump vec2 vUV;
+            varying highp vec2 vUV;
             
             void main(void)
             {
@@ -77,8 +77,8 @@ WebGL TestBed by Mattias Santoro
         <script id="shader-fs-color-texture" type="x-shader/x-fragment">
             uniform sampler2D uSampler;
             
-            varying mediump vec2 vUV;
             varying lowp vec4 vColor;
+            varying highp vec2 vUV;
            
             void main(void)
             {

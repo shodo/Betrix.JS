@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "webpack --mode development --progress --display-error-details && lite-server",
     "build": "webpack --mode development --progress --display-error-details",
     "prod": "rimraf ../wwwroot/dist && webpack --mode production --progress"
   },
@@ -13,8 +14,10 @@
   "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "^7.2.5",
+    "braces": "^2.3.1",
     "codemirror": "^5.42.0",
     "jquery": "^3.3.1",
+    "lite-server": "^2.4.0",
     "popper.js": "^1.14.4"
   },
   "devDependencies": {
